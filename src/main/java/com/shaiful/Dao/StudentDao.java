@@ -29,4 +29,23 @@ public class StudentDao {
     public Collection<Student> getAllStudents() {
         return this.students.values();
     }
+
+    public Student getStudentById(int id) {
+        return this.students.get(id);
+    }
+
+    public void removeStudentById(int id) {
+        this.students.remove(id);
+    }
+
+    public void updateStudent(Student student) {
+        Student s = students.get(student.getId());
+        s.setName(student.getName());
+        s.setCourse(student.getCourse());
+        students.put(student.getId(), student);
+    }
+
+    public void insertStudent(Student student) {
+        this.students.put(student.getId(), student);
+    }
 }
