@@ -4,6 +4,7 @@ import com.shaiful.Dao.StudentDao;
 import com.shaiful.Entity.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.Collection;
 public class StudentService {
 
     @Autowired
+    @Qualifier("mysql")
     private StudentDao studentDao;
 
 
