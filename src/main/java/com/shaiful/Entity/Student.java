@@ -1,13 +1,22 @@
 package com.shaiful.Entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "students")
 public class Student {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 
     private int id;
     private String name;
     private String course;
 
-    public Student(int id, String name, String course) {
-        this.id = id;
+    public Student(String name, String course) {
+        super();
         this.name = name;
         this.course = course;
     }
@@ -36,5 +45,15 @@ public class Student {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", course='" + course + '\'' +
+                '}';
     }
 }

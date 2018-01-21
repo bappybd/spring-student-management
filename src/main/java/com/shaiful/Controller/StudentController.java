@@ -15,6 +15,26 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+
+    @RequestMapping(value = "/all")
+    public String all() {
+        return studentService.getAll().toString();
+    }
+
+    @RequestMapping(value="/save")
+    public String save(@RequestParam String name, @RequestParam String course) {
+        Student student = new Student(name, course);
+        studentService.save(student);
+        return "Student save";
+    }
+
+    @RequestMapping(value="/delete")
+    public String save(@RequestParam int id) {
+        studentService.delete(id);
+        return "Student deleted";
+    }
+
+    /*
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Student> getAllStudents() {
         return studentService.getAllStudents();
@@ -38,5 +58,5 @@ public class StudentController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void insertStudentById(@RequestBody Student student) {
         studentService.insertStudent(student);
-    }
+    }*/
 }

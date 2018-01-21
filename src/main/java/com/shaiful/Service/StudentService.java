@@ -1,39 +1,42 @@
 package com.shaiful.Service;
 
-import com.shaiful.Dao.StudentDao;
+import com.shaiful.Dao.StudentRepo;
 import com.shaiful.Entity.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@Transactional
 public class StudentService {
 
     @Autowired
-    @Qualifier("mysql")
-    private StudentDao studentDao;
+    private final StudentRepo studentRepo;
 
-
-    public Collection<Student> getAllStudents() {
-        return this.studentDao.getAllStudents();
+    public StudentService(StudentRepo studentRepo) {
+        this.studentRepo = studentRepo;
     }
 
-    public Student getStudentById(int id) {
-        return this.studentDao.getStudentById(id);
+
+    public List<Student> getAll() {
+        List<Student> students = new ArrayList<>();
+
+        for(Student student : studentRepo.findAll()){
+            students.add(student);
+        }
+
+        return students;
     }
 
-    public void removeStudentById(int id) {
-        this.studentDao.removeStudentById(id);
+    public void save(Student student){
+        studentRepo.save(student);
     }
 
-    public void updateStudent(Student student) {
-       this.studentDao.updateStudent(student);
-    }
-
-    public void insertStudent(Student student) {
-        this.studentDao.insertStudent(student);
+    public void delete(int id){
+        studentRepo.delete(id);
     }
 }
