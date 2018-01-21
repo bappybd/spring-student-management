@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/students")
-public class StudentController {
+@RequestMapping("/api/students")
+public class ApiStudentController {
 
     @Autowired
     private StudentService studentService;
 
 
     @RequestMapping(value = "/all")
-    public String all() {
-        return studentService.getAll().toString();
+    public Collection<Student> all() {
+        return studentService.getAll();
     }
 
     @RequestMapping(value="/save")

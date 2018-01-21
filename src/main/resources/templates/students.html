@@ -1,0 +1,100 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Management</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-block">
+                <!-- Table student listing -->
+                <h2>Student Listings</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Course</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student :${data.content}">
+                            <td th:text="${student.id}"></td>
+                            <td th:text="${student.name}"></td>
+                            <td th:text="${student.course}"></td>
+                            <td><a href="" class="btn btn-primary eBtn">Edit</a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr />
+
+                <!-- Pagination -->
+                <ul class="nav nav-pills">
+                    <li class="nav-item" th:classappend="${currentPage}==${i}?'active':''"
+                        th:each="i :${#numbers.sequence(0, data.totalPages-1)}">
+                        <a th:href="@{/students/(page=${i})}" th:text="${i}" class="nav-link"></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="myForm">
+        <form th:action="@{/students/save}" method="post" role="form">
+            <div class="modal fade" id="studentEditModalNorm" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Update or Create Student
+                            </h4>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                                <input type="hidden" id="inputStudentId" value="" />
+                                <div class="form-group">
+                                    <label for="inputStudentName">Student Name</label>
+                                    <input type="text" class="form-control"
+                                           id="inputStudentName" placeholder="Name"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputStudentCourse">Course</label>
+                                    <input type="text" class="form-control"
+                                           id="inputStudentCourse" placeholder="course"/>
+                                </div>
+                                <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-primary">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>
