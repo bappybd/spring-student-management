@@ -2,21 +2,18 @@ package com.shaiful.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "students")
 public class Student {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-
+    @GeneratedValue
     private int id;
     private String name;
     private String course;
 
     public Student(String name, String course) {
-        super();
         this.name = name;
         this.course = course;
     }

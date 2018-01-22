@@ -1,15 +1,15 @@
 package com.shaiful.Controller;
 
-import com.shaiful.Dao.StudentRepo;
+import com.shaiful.Entity.Student;
 import com.shaiful.Repository.StudentRepository;
-import com.shaiful.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class StudenController {
@@ -27,4 +27,23 @@ public class StudenController {
         return "students";
     }
 
+    @PostMapping("/students/save")
+    public String save(@ModelAttribute Student student, BindingResult bindingResult ) {
+        studentRepository.save(student);
+        return "redirect:/students";
+    }
+
+
+    @PostMapping("/students/delete")
+    public String delete(Integer id) {
+        studentRepository.delete(id);
+
+        return "redirect:/students";
+    }
+
+    @GetMapping("/students/findOne")
+    @ResponseBody
+    public Student findOne(Integer id) {
+        return studentRepository.findOne(id);
+    }
 }

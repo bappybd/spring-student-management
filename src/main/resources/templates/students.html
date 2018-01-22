@@ -7,6 +7,7 @@
     <div th:replace="fragments/header :: header"/>
 
     <div class="container">
+        <button class="btn btn-success nBtn" action="new">Add Student</button>
         <div class="card">
             <div class="card-block">
                 <!-- Table student listing -->
@@ -24,7 +25,10 @@
                             <td th:text="${student.id}"></td>
                             <td th:text="${student.name}"></td>
                             <td th:text="${student.course}"></td>
-                            <td><a href="" class="btn btn-primary eBtn">Edit</a> </td>
+                            <td>
+                                <a th:href="@{/students/findOne/(id=${student.id})}" class="btn btn-primary eBtn" action="edit">Edit</a>
+                                <a th:href="@{/students/findOne/(id=${student.id})}" class="btn btn-danger delBtn" action="delete">Delete</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -42,7 +46,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Student Edit Modal -->
     <div class="myForm">
         <form th:action="@{/students/save}" method="post" role="form">
             <div class="modal fade" id="studentEditModalNorm" tabindex="-1" role="dialog"
@@ -56,25 +60,24 @@
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">
+                            <h4 class="modal-title" id="myEditModalLabel">
                                 Update or Create Student
                             </h4>
                         </div>
 
                         <!-- Modal Body -->
                         <div class="modal-body">
-                                <input type="hidden" id="inputStudentId" value="" />
-                                <div class="form-group">
-                                    <label for="inputStudentName">Student Name</label>
-                                    <input type="text" class="form-control"
-                                           id="inputStudentName" placeholder="Name"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputStudentCourse">Course</label>
-                                    <input type="text" class="form-control"
-                                           id="inputStudentCourse" placeholder="course"/>
-                                </div>
-                                <button type="submit" class="btn btn-default">Save</button>
+                            <input type="hidden" id="inputStudentId" name="id"/>
+                            <div class="form-group">
+                                <label for="inputStudentName">Student Name</label>
+                                <input type="text" class="form-control"
+                                       id="inputStudentName" name="name" placeholder="Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputStudentCourse">Course</label>
+                                <input type="text" class="form-control"
+                                       id="inputStudentCourse" name="course" placeholder="course"/>
+                            </div>
                         </div>
 
                         <!-- Modal Footer -->
@@ -83,15 +86,52 @@
                                     data-dismiss="modal">
                                 Close
                             </button>
-                            <button type="button" class="btn btn-primary">
-                                Save changes
-                            </button>
+                            <input type="submit" class="btn btn-primary" value="save" />
                         </div>
                     </div>
                 </div>
             </div>
         </form>
-    </div>
+    </div><!-- End Student Edit Modal -->
+
+    <!-- Student Delete Modal -->
+    <div class="myForm">
+        <form th:action="@{/students/delete}" method="post" role="form">
+            <div class="modal fade" id="studentDeleteModalNorm" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myDeleteModalLabel">
+                                Delete Student
+                            </h4>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <input type="hidden" id="inputStudentIdDelete" name="id"/>
+                            <p class="alert alert-danger">Are you sure you want to delete this Student?</p>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                Close
+                            </button>
+                            <input type="submit" class="btn btn-danger" value="Delete" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div><!-- End Student Delete Modal -->
 
 
     <div th:replace="fragments/footer :: footer"/>
