@@ -11,7 +11,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
@@ -58,13 +58,16 @@ public class User {
     }
 
 
-    public User(Integer id, String name, String email, String password) {
-        this.id = id;
+    public User( String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
     public User() {
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }
