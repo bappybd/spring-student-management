@@ -1,6 +1,10 @@
 package com.shaiful.Entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 @Entity(name = "users")
@@ -8,8 +12,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @NotEmpty
     private String name;
+    @Email
+    @NotEmpty
+    @Column(unique = true)
     private String email;
+    @Size(min=4)
     private String password;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

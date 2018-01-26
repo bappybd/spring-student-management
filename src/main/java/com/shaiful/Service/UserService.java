@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -40,5 +43,27 @@ public class UserService {
     }
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public boolean isUserPresent(String email) {
+        System.out.println(email);
+        User user = userRepository.findByEmail(email);
+        if(user!=null){
+            return true;
+        }
+
+        return false;
+    }
+
+    public String test() {
+        return "Test";
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public List<User> findByName(String name) {
+        return userRepository.findByNameLike("%"+name+"%");
     }
 }
